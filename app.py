@@ -2,10 +2,18 @@ import streamlit as st
 import joblib
 import numpy as np
 import tempfile
+import gdown
+import os
 from feature_extractor import extract_features
 
-# Load model
-model = joblib.load("crop_disease_model.pkl")
+MODEL_FILE="crop_disease_model.pkl"
+#https://drive.google.com/file/d/1qlW3yEQAUH01Fow-iuVoD8us9MUcMxgf/view?usp=drive_link
+# Load model"crop_disease_model.pkl"
+if not os.path.exists(MODEL_FILE):
+    file_id = "1qlW3yEQAUH01Fow-iuVoD8us9MUcMxgf"
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, MODEL_FILE, quiet=False)
+model = joblib.load(MODEL_FILE)
 
 # UI
 st.title("🌱 Crop Disease Prediction App")
